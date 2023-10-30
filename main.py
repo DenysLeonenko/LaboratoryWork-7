@@ -9,6 +9,8 @@ class Book:
             readed_percent = (int(self.readed_to_page) * 100) / int(self.total_pages)
             return readed_percent
 
+#         зробити додатково оновлювати інформацію щодо прочитаних сторінок у книзі
+
 
 class Library:
     def __init__(self):
@@ -26,6 +28,11 @@ class Library:
                 return
         else:
             print("Надана книга не є елементом бібліотеки, або не є об'єктом класу Book")
+
+    def update_book_information(self, book_title, readed_to_page):
+        for book in self.books:
+            if book_title == book.title:
+                book.readed_to_page = readed_to_page
 
     def display_books_info(self, display_books_info):
         if display_books_info is True:
@@ -61,15 +68,14 @@ while True:
             continue_or_stop = input("Чи бажаєте ви продовжити працювати у програмі? (Так/Ні): ")
             if continue_or_stop.lower() == "ні":
                 break
-            add_or_delete_book = input(
-                "Введіть 'Додати', для запису книги у бібліотеку, та 'Видалити' задля видалення книги з бібліотеки: ")
-            if add_or_delete_book.lower() == "додати":
+            add_delete_or_update_book = input("Введіть 'Додати', для запису книги у бібліотеку, 'Видалити' задля видалення книги з бібліотеки, та 'Оновити' задля оновлення кількості сторінок: ")
+            if add_delete_or_update_book.lower() == "додати":
                 while True:
                     add_book()
                     add_that_one_book = input("Чи бажаєте ви ввести ще книгу? (Так/Ні): ")
                     if add_that_one_book.lower() == "ні":
                         break
-            else:
+            if add_delete_or_update_book.lower() == "видалити":
                 while True:
                     display_books = input("Чи бажаєте ви переглянути бібліотеку? (Так/Ні): ")
                     if display_books.lower() == "так":
@@ -87,6 +93,21 @@ while True:
                         delete_that_one_book_attention = input("Чи ви хочете видалити, ще одну книгу? (Так/Ні): ")
                         if delete_that_one_book_attention.lower() == "ні":
                             break
+                    else:
+                        break
+            if add_delete_or_update_book.lower() == 'оновити':
+                while True:
+                    display_books = input("Чи бажаєте ви переглянути бібліотеку? (Так/Ні): ")
+                    if display_books.lower() == "так":
+                        library.display_books_info(True)
+                    book_title = input("Введіть назву книги, яку хочете оновити: ")
+                    new_readed_to_page_info = input("Введіть нові значення прочитаних сторінок: ")
+                    update_book_attention = input("Ви дійсно хочете оновити цю книгу? (Так/Ні): ")
+                    if update_book_attention.lower() == "так":
+                        library.update_book_information(book_title, new_readed_to_page_info)
+                        display_books = input("Чи бажаєте ви переглянути бібліотеку? (Так/Ні): ")
+                        if display_books.lower() == "так":
+                            library.display_books_info(True)
                     else:
                         break
     else:
