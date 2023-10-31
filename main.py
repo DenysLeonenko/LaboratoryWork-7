@@ -9,8 +9,6 @@ class Book:
             readed_percent = (int(self.readed_to_page) * 100) / int(self.total_pages)
             return readed_percent
 
-#         зробити додатково оновлювати інформацію щодо прочитаних сторінок у книзі
-
 
 class Library:
     def __init__(self):
